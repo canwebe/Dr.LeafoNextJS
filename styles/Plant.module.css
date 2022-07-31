@@ -1,0 +1,49 @@
+.title {
+  text-transform: capitalize;
+  text-align: center;
+  margin: 16px 0;
+  font-weight: 300;
+  font-size: 1.3rem;
+}
+.title::after {
+  content: '';
+  width: 140px;
+  height: 1px;
+  display: block;
+  margin: 2px auto;
+  background-color: var(--color-green-3);
+}
+
+.imgDiv {
+  border: 15px solid #90cbb7;
+}
+
+.btnDiag {
+  background-color: var(--color-blue-2);
+  padding: 10px;
+  width: 100%;
+  font-size: 1.3rem;
+  color: white;
+  box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.3);
+  margin: 15px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.btnDiag:active {
+  background-color: #125c8e;
+  transform: scale(0.97);
+}
+
+.btnDiag:disabled {
+  background-color: #88aac1;
+}
+
+.warning {
+  font-size: 0.9rem;
+  margin-top: 5px;
+  color: #00000070;
+}
+
+.resultWrapper {
+  padding: 10px 0 70px;
+}

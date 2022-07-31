@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Nav from '../components/nav'
 import '../styles/globals.css'
 import '../styles/nprogress.css'
 import nProgress from 'nprogress'
 import { Router } from 'next/router'
+import { Toaster } from 'react-hot-toast'
+
 nProgress.configure({ showSpinner: false })
 
 function MyApp({ Component, pageProps }) {
@@ -27,6 +29,7 @@ function MyApp({ Component, pageProps }) {
       <main>
         <Component {...pageProps} />
       </main>
+      <Toaster />
     </>
   )
 }

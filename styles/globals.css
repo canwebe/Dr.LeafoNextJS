@@ -58,3 +58,9 @@ nav {
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 16px -5px rgba(0, 0, 0, 0.3);
 }
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}

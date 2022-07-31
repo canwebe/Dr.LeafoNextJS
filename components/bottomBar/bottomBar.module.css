@@ -1,0 +1,44 @@
+.bottomBar {
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -4px 14px -5px rgba(0, 0, 0, 0.3);
+  padding: 5px 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 18px 18px 0 0;
+}
+
+.icon {
+  font-size: 2rem;
+  color: var(--color-green-3);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 10px 0 20px;
+  font-size: 1.2rem;
+}
+
+.btn {
+  padding: 9px 40px;
+  border: none;
+  outline: none;
+  background-color: #5dade2;
+  width: fit-content;
+  border-radius: 7px;
+  font-size: 1.1rem;
+  color: rgb(0, 0, 0);
+  border-bottom: 3px solid #3075a2;
+}
+
+.fileInput {
+  display: none;
+}
