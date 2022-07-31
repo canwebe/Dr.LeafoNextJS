@@ -1,0 +1,16 @@
+.navWrapper {
+  display: flex;
+  padding: 11px 0;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+}
+.cwb {
+  color: orangered;
+}
+
+.logo {
+  font-size: 1.6rem;
+  color: var(--color-green-3);
+  font-weight: 600;
+}

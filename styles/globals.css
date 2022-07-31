@@ -1,7 +1,18 @@
+:root {
+  --color-green-1: #4e6766;
+  --color-green-2: #a5c882;
+  --color-green-3: #019b35;
+  --color-blue-1: #b5bad0;
+  --color-blue-2: #3498db;
+  --color-pink-1: #ef626c;
+  --color-loader: #019b35;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -10,12 +21,13 @@ html {
 }
 
 body {
-  font-family: Montserrat, sans-serif;
-  background-color: #bcd1db;
+  font-family: 'Roboto', sans-serif;
+  background-color: #d6eaf8;
+  background-color: #d6f8ed;
 }
 
 .wrapper {
-  width: 95%;
+  width: 92%;
   margin: 0 auto;
   max-width: 1500px;
 }
@@ -29,6 +41,20 @@ img {
   width: 100%;
 }
 
-.marginNav {
-  margin-top: 100px;
+.navMargin {
+  margin-top: 50px;
+}
+
+main {
+  padding: 52px 0;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 16px -5px rgba(0, 0, 0, 0.3);
 }
