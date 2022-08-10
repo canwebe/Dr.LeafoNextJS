@@ -5,10 +5,12 @@ import styles from '../../../styles/Plant.module.css'
 import * as tf from '@tensorflow/tfjs'
 import toast from 'react-hot-toast'
 import { diseaseName } from '../../../data/diseaseName'
+import { getDisease } from '../../../lib/helper'
 
 export default function PlantName() {
   const [imgUrl, setImgUrl] = useState('')
   const [model, setModel] = useState()
+  const [data, setData] = useState()
   const [isLoading, setisLoading] = useState(false)
   const [result, setResult] = useState()
   const router = useRouter()
@@ -31,8 +33,16 @@ export default function PlantName() {
     }
   }
 
+  const fetchData = async (dname) => {
+    const res = await getDisease(dname)
+    if (res) {
+      setData(res)
+    }
+  }
+
   const handleDiagnose = async () => {
     setisLoading(true)
+    setData(null)
     const toastId = toast.loading('Predicting the output')
     if (model) {
       try {
@@ -50,7 +60,6 @@ export default function PlantName() {
 
         const top3 = Array.from(res)
           .map((item, i) => {
-            console.log('ddd', item)
             return {
               precision: item,
               disName: diseaseName[name][i],
@@ -59,6 +68,9 @@ export default function PlantName() {
           .sort((a, b) => b.precision - a.precision)
           .slice(0, 3)
         setResult(top3)
+        if (top3[0]?.precision * 100 > 50) {
+          await fetchData(top3[0]?.disName?.toLowerCase())
+        }
         toast.success('Prediction Successfull', {
           id: toastId,
         })
@@ -118,23 +130,27 @@ export default function PlantName() {
                 </p>
               ))}
               <hr className={styles.hr} />
-              {result[0].precision * 100 > 50 && (
-                <div>
-                  <h2>Cause :</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Cumque pariatur ab, quos expedita reprehenderit, corrupti
-                    laboriosam deleniti tempore sit ex sint ipsum debitis
-                    officiis, mollitia consequatur dolore! Possimus, earum
-                    dolorem.
-                  </p>
-                  <h2>Remedy :</h2>
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Ducimus dicta rerum alias saepe amet sunt. Atque eaque,
-                    obcaecati quia, labore ullam quam commodi distinctio velit
-                    nihil, asperiores eum modi laborum.
-                  </p>
+              {data && (
+                <div className={styles.extraDataWrapper}>
+                  <div>
+                    <h2 className={styles.topM}>Info :</h2>
+                    <p>{data?.info}</p>
+                  </div>
+                  <div>
+                    <h2 className={styles.topM}>Managing :</h2>
+                    <p>{data?.managing}</p>
+                  </div>
+                  <div>
+                    <h2 className={styles.topM}>Signs :</h2>
+                    <p>{data?.signs}</p>
+                  </div>
+
+                  {data?.medicine && (
+                    <div>
+                      <h2 className={styles.topM}>Medicine :</h2>
+                      <p className={styles.medicine}>{data?.medicine}</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
