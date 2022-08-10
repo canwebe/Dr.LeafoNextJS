@@ -18,7 +18,7 @@ export default function PlantName() {
   const loadModel = async () => {
     const toastId = toast.loading('Loading Model..')
     try {
-      const model = await tf.loadLayersModel('/converted/model.json')
+      const model = await tf.loadGraphModel(`/models/${name}/model.json`)
       setModel(model)
       toast.success('Model Loaded', {
         id: toastId,
@@ -36,15 +36,21 @@ export default function PlantName() {
     const toastId = toast.loading('Predicting the output')
     if (model) {
       try {
+        // const imgData = tf.browser
+        //   .fromPixels(imgRef.current)
+        //   .resizeBilinear([256, 256])
+        //   .toFloat()
+        //   .div(tf.scalar(255.0))
+        //   .expandDims()
         const imgData = tf.browser
           .fromPixels(imgRef.current)
           .resizeBilinear([256, 256])
-          .toFloat()
-          .div(tf.scalar(255.0))
           .expandDims()
         const res = await model.predict(imgData).data()
+
         const top3 = Array.from(res)
           .map((item, i) => {
+            console.log('ddd', item)
             return {
               precision: item,
               disName: diseaseName[name][i],
@@ -56,6 +62,7 @@ export default function PlantName() {
         toast.success('Prediction Successfull', {
           id: toastId,
         })
+        setisLoading(false)
       } catch (error) {
         console.log(error)
         toast.error('Prediction Failed', {
@@ -67,7 +74,6 @@ export default function PlantName() {
         id: toastId,
       })
     }
-    setisLoading(false)
   }
 
   useEffect(() => {
@@ -103,7 +109,7 @@ export default function PlantName() {
               <h2>Result:</h2>
               <p>Name : {result[0].disName}</p>
               <p>Accuracy : {(result[0].precision * 100).toFixed(2)}%</p>
-              <hr />
+              <hr className={styles.hr} />
               <h2>All info:</h2>
 
               {result.map((item, i) => (
@@ -111,6 +117,26 @@ export default function PlantName() {
                   {item.disName} : {(item.precision * 100).toFixed(2)}%
                 </p>
               ))}
+              <hr className={styles.hr} />
+              {result[0].precision * 100 > 50 && (
+                <div>
+                  <h2>Cause :</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Cumque pariatur ab, quos expedita reprehenderit, corrupti
+                    laboriosam deleniti tempore sit ex sint ipsum debitis
+                    officiis, mollitia consequatur dolore! Possimus, earum
+                    dolorem.
+                  </p>
+                  <h2>Remedy :</h2>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Ducimus dicta rerum alias saepe amet sunt. Atque eaque,
+                    obcaecati quia, labore ullam quam commodi distinctio velit
+                    nihil, asperiores eum modi laborum.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </>

@@ -7,7 +7,8 @@ import Head from 'next/head'
 
 export default function Home() {
   const handleClick = (e, item) => {
-    if (item !== 'potato') {
+    const acc = ['potato', 'pepper', 'tomato']
+    if (!acc.includes(item)) {
       e.preventDefault()
       toast.error('Access denied, Try Another')
     }
